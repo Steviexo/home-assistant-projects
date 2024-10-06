@@ -1,7 +1,7 @@
 # SkyConnect Stick nicht erkannt in Home Assistant VM (Synology NAS)
 
 ## Problem:
-Der **Nabu Casa SkyConnect** Stick wurde in einer **Home Assistant**-Installation auf einem **Synology NAS** in einer VM nicht erkannt. Die Home Assistant-Oberfläche zeigte eine Fehlermeldung in der Zig>
+Der **Nabu Casa SkyConnect** Stick wurde in einer **Home Assistant**-Installation auf einem **Synology NAS** in einer VM nicht erkannt. Die Home Assistant-Oberfläche zeigte eine Fehlermeldung in der Zigbee-Integration (ZHA), die darauf hinwies, dass der serielle Port nicht gefunden werden konnte.
 
 ### Fehlermeldung:
 ```
