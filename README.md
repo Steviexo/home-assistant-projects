@@ -1,40 +1,39 @@
-# SkyConnect Stick nicht erkannt in Home Assistant VM (Synology NAS)
+# Home Assistant Projects
 
-## Problem:
-Der **Nabu Casa SkyConnect** Stick wurde in einer **Home Assistant**-Installation auf einem **Synology NAS** in einer VM nicht erkannt. Die Home Assistant-Oberfläche zeigte eine Fehlermeldung in der Zigbee-Integration (ZHA), die darauf hinwies, dass der serielle Port nicht gefunden werden konnte.
+Dieses Repository enthält verschiedene Projekte und Lösungen im Zusammenhang mit **Home Assistant**, die ich auf meiner Synology NAS implementiert habe. Hier findest du Dokumentationen, Anleitungen und Konfigurationsbeispiele zu spezifischen Home Assistant-Themen, die ich in der Praxis gelöst habe.
 
-### Fehlermeldung:
-```
-[Errno 2] could not open port /dev/serial/by-id/usb-Nabu_Casa_SkyConnect_v1_0_... No such file or directory
-```
+## Projekte
 
-## Umgebung:
-- Home Assistant OS 13.1
-- Synology NAS mit Virtual Machine Manager (VM)
-- Nabu Casa SkyConnect Stick (Silicon Labs CP210x USB to UART Bridge)
+### 1. [Home Assistant Reverse Proxy Setup](reverse-proxy-setup/README.md)
+In diesem Projekt wird beschrieben, wie ein **Reverse Proxy** auf einer **Synology NAS** eingerichtet wird, um **Home Assistant** sicher über **HTTPS** von extern erreichbar zu machen.
 
-## Schritte zur Lösung:
+**Inhalt:**
+- Einrichtung des Reverse Proxy in DSM
+- Verwendung eines Let's Encrypt Wildcard-Zertifikats
+- Konfiguration der `configuration.yaml` für vertrauenswürdige Proxies
 
-### 1. Physische Überprüfung und USB Passthrough:
-   - Der SkyConnect-Stick wurde im NAS unter `lsusb` korrekt erkannt, jedoch nicht in der VM durchgereicht.
-   - **Lösung:** In den **VM-Einstellungen** (Synology Virtual Machine Manager) den **USB-Passthrough** für den SkyConnect-Stick (Silicon Labs CP210x) aktivieren. Entfernen und erneutes Hinzufügen des G>
+[Mehr erfahren](reverse-proxy-setup/README.md)
 
-### 2. Überprüfung in der VM:
-   - Nach Aktivierung des Passthroughs in der VM war der SkyConnect-Stick unter `/dev/serial/by-id/` sichtbar:
-   ```bash
-   ls /dev/serial/by-id/
-   ```
-   - Der Stick wurde als **`usb-Silicon_Labs_CP210x_USB_to_UART_Bridge_Controller_...`** erkannt.
+---
 
-### 3. Konfiguration in Home Assistant:
-   - In der **Zigbee Home Automation (ZHA)**-Integration den seriellen Port korrekt eingestellt:
-   ```bash
-   /dev/serial/by-id/usb-Silicon_Labs_CP210x_USB_to_UART_Bridge_Controller_...
-   ```
+### 2. [SkyConnect Issue Fix](skyconnect-issue-fix/README.md)
+In diesem Projekt wird ein spezifisches Problem mit dem **SkyConnect-Stick** in **Home Assistant** beschrieben und gelöst.
 
-### 4. Neustart und Überprüfung:
-   - Nach dem Neustart von Home Assistant und ZHA war keine Fehlermeldung mehr sichtbar, und die Zigbee-Geräte funktionierten wie erwartet.
+**Inhalt:**
+- Problembeschreibung
+- Lösungsschritte und Konfigurationsanpassungen
 
-## Ergebnis:
-Das Problem wurde erfolgreich gelöst, indem der USB-Passthrough korrekt eingerichtet wurde. Der Nabu Casa SkyConnect Stick wird jetzt ordnungsgemäß in Home Assistant erkannt, und die Zigbee-Integration funktioniert fehlerfrei.
+[Mehr erfahren](skyconnect-issue-fix/README.md)
 
+---
+
+## Weitere Home Assistant-Projekte in Planung
+
+Dieses Repository wird fortlaufend aktualisiert, da ich weitere Projekte und Automatisierungen mit **Home Assistant** implementiere.
+
+---
+
+## Nützliche Ressourcen
+- [Home Assistant Offizielle Dokumentation](https://www.home-assistant.io/docs/)
+- [Synology Reverse Proxy Dokumentation](https://kb.synology.com/en-global/DSM/tutorial/How_to_set_up_Reverse_Proxy_on_Synology_NAS)
+- [Let's Encrypt Dokumentation](https://letsencrypt.org/docs/)
