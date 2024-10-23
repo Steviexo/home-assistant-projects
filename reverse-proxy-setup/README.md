@@ -16,7 +16,8 @@ We configured a reverse proxy to allow secure external access to **Home Assistan
 1. Setting up a reverse proxy on the **Synology NAS**.
 2. Requesting and configuring a **Let's Encrypt Wildcard Certificate**.
 3. Configuring **Home Assistant** to trust the reverse proxy.
-4. Troubleshooting common issues (like the 400 Bad Request error).
+4. Enabling WebSocket Support in Reverse Proxy
+5. Troubleshooting common issues (like the 400 Bad Request error).
 
 ---
 
@@ -74,7 +75,36 @@ To ensure that Home Assistant accepts requests from the reverse proxy, update th
 
 ---
 
-## 4. Troubleshooting Common Issues
+## 4. Enabling WebSocket Support in Reverse Proxy
+
+To ensure that the **Home Assistant Companion App** functions properly when outside the home network (e.g., using mobile data), it's important to enable support for **WebSocket connections** in the **Reverse Proxy**. Home Assistant relies on WebSockets to maintain a constant connection, which is crucial for real-time updates.
+
+#### Steps to Enable WebSocket Support:
+
+1. On your **Synology NAS**, go to **Control Panel** → **Application Portal** → **Reverse Proxy**.
+2. Select your existing **Reverse Proxy rule** for Home Assistant and click **Edit**.
+3. Go to the **Custom Headers** tab.
+4. Click **Create** → **WebSocket**.
+
+   - This will automatically add the necessary WebSocket headers:
+     - **Upgrade**: `websocket`
+     - **Connection**: `Upgrade`
+
+5. **Save the changes** and test the connection again using the Home Assistant Companion App.
+
+#### Why are WebSockets important?
+
+The Home Assistant Companion App uses **WebSockets** to transfer real-time data and immediately react to changes in the system. Without proper WebSocket support, connection errors may occur, especially when accessing Home Assistant from outside your home network or via mobile data.
+
+---
+
+### Troubleshooting Tip:
+
+If you encounter a **"400 Bad Request"** error after setting up the reverse proxy, it may be due to missing WebSocket support. Adding the WebSocket headers as described above should resolve this issue.
+
+---
+
+## 5. Troubleshooting Common Issues
 
 ### Issue: "400 Bad Request" Error
 If you encounter a **400 Bad Request** error when accessing Home Assistant via the domain, it's likely due to missing **trusted proxies** in the Home Assistant configuration.
