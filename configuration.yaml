@@ -1,0 +1,14 @@
+# Hauptkonfigurationsdatei (Ausschnitt)
+
+# Automatisierungen getrennt nach Kategorie laden
+automation: !include_dir_merge_list automations/lighting/
+automation 2: !include_dir_merge_list automations/presence/
+automation 3: !include_dir_merge_list automations/power_management/
+
+# Helfer wie input_boolean, falls separat verwaltet
+input_boolean: !include helpers/input_booleans.yaml
+
+# Weitere Konfigurationsbausteine könnten folgen, z. B.:
+# script: !include scripts.yaml
+# scene: !include scenes.yaml
+# sensor: !include_dir_merge_list sensors/
