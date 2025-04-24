@@ -1,0 +1,34 @@
+# Automatisierung: Cloudy days need light (YAMA-Blueprint-basiert)
+
+alias: Cloudy days need light
+description: Schaltet Licht an bewölkten Tagen ein, wenn ich zuhause bin
+use_blueprint:
+  path: networkingcat/yet_another_motion_automation.yaml
+  input:
+    motion_entity: binary_sensor.hue_motion_sensor_wohnzimmer
+    light_target:
+      area_id: wohnzimmer
+    no_motion_wait: 240
+    automation_blocker: scene.tv_night
+    automation_blocker_boolean: true
+
+# Ergänzender Trigger zur Blueprint-Automatisierung
+trigger:
+  - platform: time
+    at: "09:00:00"
+  - platform: numeric_state
+    entity_id: sensor.hue_motion_sensor_wohnzimmer_beleuchtungsstarke
+    below: 10
+    for:
+      minutes: 10
+
+condition:
+  - condition: state
+    entity_id: person.stevie
+    state: home
+  - condition: time
+    after: "09:00:00"
+    before: "17:00:00"
+  - condition: state
+    entity_id: weather.home
+    state: cloudy
