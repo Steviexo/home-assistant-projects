@@ -1,0 +1,18 @@
+# Automatisierung: I'm home
+
+alias: I'm home
+description: Schaltet das Licht im Wohnzimmer ein, wenn ich nach Hause komme
+trigger:
+  - platform: zone
+    entity_id: person.stevie
+    zone: zone.home
+    event: enter
+condition:
+  - condition: state
+    entity_id: light.wohnzimmer
+    state: 'off'
+action:
+  - service: light.turn_on
+    target:
+      area_id: wohnzimmer
+mode: single
