@@ -1,0 +1,24 @@
+# Automatisierung: Its gettin dark
+
+alias: Its gettin dark
+description: Schaltet das Wohnzimmerlicht bei Dämmerung ein, wenn ich zuhause bin
+trigger:
+  - platform: time
+    at: "16:30:00"
+  - platform: numeric_state
+    entity_id: sensor.hue_motion_sensor_1_beleuchtungsstarke
+    below: 5
+    for:
+      minutes: 10
+condition:
+  - condition: state
+    entity_id: person.stevie
+    state: home
+  - condition: time
+    after: "16:00:00"
+    before: "22:00:00"
+action:
+  - service: light.turn_on
+    target:
+      area_id: wohnzimmer
+mode: single
