@@ -1,0 +1,26 @@
+# Automatisierung: Power strip control
+
+alias: Power strip control
+description: Schaltet die Steckdosenleiste zeitgesteuert ein und aus
+trigger:
+  - platform: time
+    at: "22:00:00"
+  - platform: time
+    at: "02:00:00"
+action:
+  - choose:
+      - conditions:
+          - condition: template
+            value_template: "{{ now().strftime('%H:%M') == '22:00' }}"
+        sequence:
+          - service: switch.turn_on
+            target:
+              entity_id: group.power_strip
+      - conditions:
+          - condition: template
+            value_template: "{{ now().strftime('%H:%M') == '02:00' }}"
+        sequence:
+          - service: switch.turn_off
+            target:
+              entity_id: group.power_strip
+mode: single
