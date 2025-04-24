@@ -1,0 +1,8 @@
+# Helfer: input_booleans.yaml
+
+stabil_zuhause:
+  name: Stabil Zuhause
+  icon: mdi:home-account
+  initial: false
+  restore: true
+  assumed_state: false
