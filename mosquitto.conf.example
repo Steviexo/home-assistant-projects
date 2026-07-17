@@ -1,0 +1,12 @@
+# Minimalbeispiel.
+# Für den dauerhaften Betrieb Authentifizierung aktivieren.
+
+listener 1883
+
+# Nur als einfacher Startpunkt:
+allow_anonymous true
+
+persistence true
+persistence_location /mosquitto/data/
+
+log_dest file /mosquitto/log/mosquitto.log
